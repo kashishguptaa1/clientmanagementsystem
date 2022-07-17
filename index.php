@@ -1,95 +1,156 @@
-<?php
-session_start();
-error_reporting(0);
-include('includes/dbconnection.php');
 
-if(isset($_POST['login'])) 
-  {
-    $username=$_POST['username'];
-    $password=md5($_POST['password']);
-    $sql ="SELECT ID FROM tbladmin WHERE UserName=:username and Password=:password";
-    $query=$dbh->prepare($sql);
-    $query-> bindParam(':username', $username, PDO::PARAM_STR);
-$query-> bindParam(':password', $password, PDO::PARAM_STR);
-    $query-> execute();
-    $results=$query->fetchAll(PDO::FETCH_OBJ);
-    if($query->rowCount() > 0)
-{
-foreach ($results as $result) {
-$_SESSION['clientmsaid']=$result->ID;
-}
-$_SESSION['login']=$_POST['username'];
-echo "<script type='text/javascript'> document.location ='dashboard.php'; </script>";
-} else{
-echo "<script>alert('Invalid Details');</script>";
-}
-}
+<!DOCTYPE html>
+<html lang="zxx">
 
-?>
-<!DOCTYPE HTML>
-<html>
 <head>
-	<title>Client Management System||Login Page</title>
+    <title>Client Management System || Home Page</title>
+    
+    <script>
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
 
-	<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-	<!-- Bootstrap Core CSS -->
-	<link href="css/bootstrap.min.css" rel='stylesheet' type='text/css' />
-	<!-- Custom CSS -->
-	<link href="css/style.css" rel='stylesheet' type='text/css' />
-	<!-- Graph CSS -->
-	<link href="css/font-awesome.css" rel="stylesheet"> 
-	<!-- jQuery -->
-	<link href='//fonts.googleapis.com/css?family=Roboto:700,500,300,100italic,100,400' rel='stylesheet' type='text/css'>
-	<!-- lined-icons -->
-	<link rel="stylesheet" href="css/icon-font.min.css" type='text/css' />
-	<!-- //lined-icons -->
-	<script src="js/jquery-1.10.2.min.js"></script>
-	<!--clock init-->
-</head> 
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+    <!-- Custom Theme files -->
+    <link href="css/bootstrap.min.css" type="text/css" rel="stylesheet" media="all">
+    <link href="css/style.css" type="text/css" rel="stylesheet" media="all">
+    <!-- font-awesome icons -->
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <!-- //Custom Theme files -->
+    <!-- online-fonts -->
+    <link href="//fonts.googleapis.com/css?family=Amaranth:400,400i,700,700i" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=PT+Sans:400,400i,700,700i" rel="stylesheet">
+</head>
+
 <body>
-	<div class="error_page">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- header -->
+            <div class="col-lg-2" id="spy">
+                <div class="header-agile">
+                    <h1>
+                        <a class="navbar-brand" href="index.php">
+                           CMS
+                        </a>
+                    </h1>
+                </div>
+                <ul class="nav nav-pills flex-column mt-lg-5">
+                    <li class="nav-item"><a class="nav-link active" href="index.php">Home</a></li>
+                    
+                    <button type="button" class="btn btn-block mt-lg-5 mt-3 w3ls-btn p-1 btn-theme text-white  text-uppercase font-weight-bold" 
+                    >
+                    <a class="nav-link" href="admin/index.php">Admin</a>
+                </button>
+                <button type="button" class="btn btn-block mt-lg-5 mt-3 w3ls-btn p-1 btn-theme text-white  text-uppercase font-weight-bold" 
+                    >
+                    <a class="nav-link" href="client/index.php">Client</a>
+                </button>
+                </ul>
+                
+            </div>
+            <!-- //header -->
+            <!-- main -->
+            <div class="col-lg-10 scrollspy-example pr-0" data-spy="scroll" data-target="#spy">
+                <!-- banner -->
+                <div id="home" class="w3ls-banner d-flex  align-items-center justify-content-center">
+                    <div class="bnr-w3pvt text-center">
+                        <h4>Welcome to!!</h4>
+                        <h2 class="bnr-txt-w3">Client Management System</h2>
+                        <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae</p>
+                       
+                    </div>
+                </div>
+                <!-- //banner -->
+          
+                <!-- //explore -->
+                <!-- contact -->
+                <div id="contact" class="pt-lg-5">
+                    
+                    <div class="section">
+                        
+                       
+                        <div class="footer-bottom py-lg-5 py-3">
+                          
+                            <div class="footer-copy text-center">
+                                <p class="text-dark">Client Management System @ 2019
+                                    
+                                </p>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <!-- //contact -->
+            </div>
+            <!-- //main -->
+        </div>
+    </div>
+  
+  
 
-		<div class="error-top">
-			<h2 class="inner-tittle page">CMS</h2>
-			<div class="login">
-				
-				<div class="buttons login">
-					<h3 class="inner-tittle t-inner" style="color: lightblue">Sign In</h3>
-				</div>
-				<form id="login" method="post" name="login"> 
-					<input type="text" class="text" value="User Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'E-mail address';}" name="username" required="true">
-					<input type="password" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}" name="password" required="true">
-					<div class="submit"><input type="submit" onclick="myFunction()" value="Login" name="login" ></div>
-					<div class="clearfix"></div>
+    <!-- js -->
+    <script src="js/jquery-2.2.3.min.js"></script>
+    <!-- //js -->
+    <!-- start-smooth-scrolling -->
+    <script src="js/move-top.js"></script>
+    <script src="js/easing.js"></script>
+    <script>
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
+                event.preventDefault();
 
-					<div class="new">
-						<p><a href="forgot-password.php">Forgot Password?</a></p>
-						<p><a href="../index.php">Back Home!!</a></p>
+                $('html,body').animate({
+                    scrollTop: $(this.hash).offset().top
+                }, 1000);
+            });
+        });
+    </script>
+    <!-- //end-smooth-scrolling -->
+    <!-- smooth-scrolling-of-move-up -->
+    <script>
+        $(document).ready(function () {
+            /*
+            var defaults = {
+                containerID: 'toTop', // fading element id
+                containerHoverID: 'toTopHover', // fading element hover id
+                scrollSpeed: 1200,
+                easingType: 'linear' 
+            };
+            */
 
-						<div class="clearfix"></div>
-					</div>
-				</form>
-			</div>
+            $().UItoTop({
+                easingType: 'easeOutQuart'
+            });
 
+        });
+    </script>
+    <script src="js/SmoothScroll.min.js"></script>
+    <!-- //smooth-scrolling-of-move-up -->
+    <script>
+        window.onload = function () {
+            document.getElementById("password1").onchange = validatePassword;
+            document.getElementById("password2").onchange = validatePassword;
+        }
 
-		</div>
+        function validatePassword() {
+            var pass2 = document.getElementById("password2").value;
+            var pass1 = document.getElementById("password1").value;
+            if (pass1 != pass2)
+                document.getElementById("password2").setCustomValidity("Passwords Don't Match");
+            else
+                document.getElementById("password2").setCustomValidity('');
+            //empty string means no validation error
+        }
+    </script>
+    <!-- script for password match -->
 
-
-		<!--//login-top-->
-	</div>
-
-	<!--//login-->
-	<!--footer section start-->
-	<div class="footer">
-		
-		<?php include_once('includes/footer.php');?>
-	</div>
-	<!--footer section end-->
-	<!--/404-->
-	<!--js -->
-	<script src="js/jquery.nicescroll.js"></script>
-	<script src="js/scripts.js"></script>
-	<!-- Bootstrap Core JavaScript -->
-	<script src="js/bootstrap.min.js"></script>
+    <!-- Bootstrap core JavaScript
+================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/bootstrap.min.js"></script>
 </body>
+
 </html>

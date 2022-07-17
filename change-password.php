@@ -3,26 +3,26 @@ session_start();
 error_reporting(0);
 include('includes/dbconnection.php');
 error_reporting(0);
-if (strlen($_SESSION['clientmsaid']==0)) {
+if (strlen($_SESSION['clientmsuid']==0)) {
   header('location:logout.php');
   } else{
 if(isset($_POST['submit']))
 {
-$adminid=$_SESSION['clientmsaid'];
+$uid=$_SESSION['clientmsuid'];
 $cpassword=md5($_POST['currentpassword']);
 $newpassword=md5($_POST['newpassword']);
-$sql ="SELECT ID FROM tbladmin WHERE ID=:adminid and Password=:cpassword";
+$sql ="SELECT ID FROM tblclient WHERE ID=:uid and Password=:cpassword";
 $query= $dbh -> prepare($sql);
-$query-> bindParam(':adminid', $adminid, PDO::PARAM_STR);
+$query-> bindParam(':uid', $uid, PDO::PARAM_STR);
 $query-> bindParam(':cpassword', $cpassword, PDO::PARAM_STR);
 $query-> execute();
 $results = $query -> fetchAll(PDO::FETCH_OBJ);
 
 if($query -> rowCount() > 0)
 {
-$con="update tbladmin set Password=:newpassword where ID=:adminid";
+$con="update tblclient set Password=:newpassword where ID=:uid";
 $chngpwd1 = $dbh->prepare($con);
-$chngpwd1-> bindParam(':adminid', $adminid, PDO::PARAM_STR);
+$chngpwd1-> bindParam(':uid', $uid, PDO::PARAM_STR);
 $chngpwd1-> bindParam(':newpassword', $newpassword, PDO::PARAM_STR);
 $chngpwd1->execute();
 

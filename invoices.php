@@ -2,7 +2,7 @@
 session_start();
 error_reporting(0);
 include('includes/dbconnection.php');
-if (strlen($_SESSION['clientmsaid']==0)) {
+if (strlen($_SESSION['clientmsuid']==0)) {
   header('location:logout.php');
   } else{
   	?>
@@ -60,9 +60,11 @@ if (strlen($_SESSION['clientmsaid']==0)) {
 									   </thead>
 									    <tbody>
 									    	<?php
+									    	$uid=$_SESSION['clientmsuid'];
 $sql="select distinct tblclient.ContactName,tblclient.CompanyName,tblinvoice.BillingId,tblinvoice.PostingDate from  tblclient   
-	join tblinvoice on tblclient.ID=tblinvoice.Userid  order by tblinvoice.ID desc";
+	join tblinvoice on tblclient.ID=tblinvoice.Userid  where tblinvoice.Userid=:uid";
 $query = $dbh -> prepare($sql);
+$query->bindParam(':uid',$uid,PDO::PARAM_STR);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
 

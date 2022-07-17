@@ -8,7 +8,7 @@ if(isset($_POST['submit']))
     $email=$_POST['email'];
 $mobile=$_POST['mobile'];
 $newpassword=md5($_POST['newpassword']);
-  $sql ="SELECT Email FROM tbladmin WHERE Email=:email and MobileNumber=:mobile";
+  $sql ="SELECT Email FROM tblclient WHERE Email=:email and Workphnumber=:mobile";
 $query= $dbh -> prepare($sql);
 $query-> bindParam(':email', $email, PDO::PARAM_STR);
 $query-> bindParam(':mobile', $mobile, PDO::PARAM_STR);
@@ -16,7 +16,7 @@ $query-> execute();
 $results = $query -> fetchAll(PDO::FETCH_OBJ);
 if($query -> rowCount() > 0)
 {
-$con="update tbladmin set Password=:newpassword where Email=:email and MobileNumber=:mobile";
+$con="update tblclient set Password=:newpassword where Email=:email and Workphnumber=:mobile";
 $chngpwd1 = $dbh->prepare($con);
 $chngpwd1-> bindParam(':email', $email, PDO::PARAM_STR);
 $chngpwd1-> bindParam(':mobile', $mobile, PDO::PARAM_STR);
@@ -66,7 +66,7 @@ return true;
 	<div class="error_page">
 
 		<div class="error-top">
-			<h2 class="inner-tittle page">CMS</h2>
+			<h2 class="inner-tittle page">CMS Clients</h2>
 			<div class="login">
 				
 				<div class="buttons login">
@@ -74,10 +74,10 @@ return true;
 				</div>
 				<form id="login" method="post" name="chngpwd" onSubmit="return valid();"> 
 
-					<input type="text" class="text" placeholder="E-mail Address"  name="email" required="true">
-					<input type="text" class="text" placeholder="Mobile Number"  required="true" name="mobile" maxlength="10" pattern="[0-9]+">
-					<input type="password" placeholder="New Password"  name="newpassword" required="true">
-					<input type="password" placeholder="Confirm Password"  name="confirmpassword" required="true">
+					<input type="text" class="text" value="E-mail Address" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'E-mail address';}" name="email" required="true">
+					<input type="text" class="text" value="Mobile Number" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'E-mail address';}" required="true" name="mobile" maxlength="10" pattern="[0-9]+">
+					<input type="password" value="New Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}" name="newpassword" required="true">
+					<input type="password" value="Confirm Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}" name="confirmpassword" required="true">
 					<div class="submit"><input type="submit" onclick="myFunction()" value="Reset" name="submit" ></div>
 					<div class="clearfix"></div>
 
